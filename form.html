@@ -1,0 +1,59 @@
+<html>
+<head>
+<title> Assignment 1 javascript</title>
+
+
+
+<form name ="sam">
+<h5 align ="center">
+First Number= <input type ="text" name ="f" > </br></br>
+
+Second Number=<input type ="text" name ="l" > </br></br>
+
+Operations=<select name="Operation">
+
+<Option value ="Add">Addition</option>
+<Option value ="sub">Substraction</option>
+<Option value ="multi">Multiplication</option>
+<Option value ="Div">Division</option>
+
+</select>
+
+</br>
+ 
+</form>
+
+<input type ="button" value ="calculate" onclick="add()"  >
+
+</h5>
+
+<script language="javascript">
+
+function add()
+{	 
+   var a,b,c;
+a=Number(document.sam.f.value);
+b=Number(document.sam.l.value);
+c=a+b;
+alert("addition is =" + c);
+
+}
+
+
+
+
+function sub()
+{
+   var e ,f ,g;
+e=Number(document.sam.f.value);
+f=Number(document.sam.l.value);
+g=e+f;
+alert("addition is =" + g);
+
+}
+</script>
+
+</head>
+<body >
+</body>
+</html>

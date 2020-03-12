@@ -1,0 +1,8 @@
+
+        private void registerMemberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            f2.Show();
+            f2.MdiParent = this;
+
+        }

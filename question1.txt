@@ -1,0 +1,223 @@
+SQL 
+
+Question:-
+Write a query in sql to list the employee whose experience is more than 27 years.
+
+Answer:-
+select emp_name from employee where DATEDIFF(YEAR,Hire_date,GETDATE())>27;
+
+***************************************************************************
+
+HTML/CSS
+
+Question:-
+Write Html/Css code for navigation bar and make link between 2 or 3 webpages.
+
+Solution:-
+<html>
+<head>
+<title> navigation </title>
+<script >
+document.write("Hello Chennai.....!");
+</script>
+<style>
+
+        .topnav
+         {
+	   overflow:hidden;
+	    background-color: #333;
+	}
+
+
+	 .topnav a
+         {
+	   float:left;
+	   color:#f2f2f2;
+	   text-align : center;
+ 	  padding :14px 16px;
+	}
+
+	 .topnav a:Hover
+         {
+	   
+	    background-color: #ddd;
+	    color:black;
+	}
+
+	 .topnav a.active
+         {
+	  
+	    background-color: #4CAF50;
+	    color :white;
+	}
+
+
+
+</style>
+</head>
+<body>
+<div class="topnav">
+<a class="active" href="block.html">Home</a>
+<a  href="resume.html">Profile</a>
+<a  href="feildset.html">Update Profile</a>
+<a  href="reg.html">New Registration</a>
+</div>
+
+
+</body>
+</html>
+
+
+**************************************************************************
+
+
+C# /Ado.net
+
+
+Question:-
+
+Create a web-form application  which contain Sr_no,Name,Course,Date_of_joining, photo(use conversion code).use buttons to insert and search data(to fetch records from database).
+link this form with database.  perform Insert and Search query (use SqlDataReader).
+
+
+Solution:-
+
+
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+       
+
+        
+        SqlConnection con;
+        String query;
+        SqlCommand cmd;
+        MemoryStream MS;
+        byte[] PhotoArray;
+        SqlDataReader reader;
+
+ //create connection between database and form
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+             con=new SqlConnection("server=BLT197\\SQLEXPRESS;database=Emp;Integrated Security=True");
+            con.Open();
+           MessageBox.Show("Connection Establish..");
+            
+        }
+
+
+//to insert data into databse
+
+        private void insert_Click(object sender, EventArgs e)
+        {
+            DateTime dt = Convert.ToDateTime(dateTimePicker1.Value);
+            query = "Insert into Student values('" +  textBox1.Text + "','" + textBox2.Text + "','" + comboBox1.Text + "','" + dt + "',@Photo)";
+
+            cmd = new SqlCommand(query, con);
+            ConvertPhoto();
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Inserted Row Successfully...!");
+        } 
+
+//Browse image from system
+
+    private void browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OPNDialog = new OpenFileDialog();
+            OPNDialog.Filter = "jpeg|*.jpg|bmp|*.bmp|All Files|*.*";
+            DialogResult Result = OPNDialog.ShowDialog();
+            if (Result == DialogResult.OK)
+            {
+                pictureBox1.Image = Image.FromFile(OPNDialog.FileName);
+            }
+        }
+
+  
+//Convert image 
+
+        void ConvertPhoto()
+        {
+            if (pictureBox1.Image != null)
+            {
+                MS = new MemoryStream();
+                pictureBox1.Image.Save(MS, ImageFormat.Jpeg);
+                byte[] PhotoArray = new byte[MS.Length];
+                MS.Position = 0;
+                MS.Read(PhotoArray, 0, PhotoArray.Length);
+                Cmd.Parameters.AddWithValue("@Photo", PhotoArray);
+            }
+        }
+
+
+
+     
+
+
+//to fetch records from database
+
+
+
+         private void search_Click(object sender, EventArgs e)
+        {
+            Cmd = new SqlCommand("Select * from StudentInfo where SNO=" + textBox1.Text + "", con);
+           
+                reader = Cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    textBox1.Text = reader[0].ToString();
+                    textBox2.Text = reader[1].ToString();
+                    comboBox1.Text = reader[2].ToString();
+                    dateTimePicker1.Text = reader[3].ToString();
+                  
+                    pictureBox1.Image = null;
+                    PhotoArray = (byte[])dreader[5];
+                    MemoryStream ms = new MemoryStream(PhotoArray);
+                    pictureBox1.Image = Image.FromStream(ms);
+
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Search");
+                }
+                reader.Close();
+        }
+}
+
+
+******************************************************************************************************************
+
+
+MCQ:-
+
+
+
+1. Which CSS property can be used to set the image as border instead of the border style?
+a) background-image
+b) border-image
+c) background-image-source
+d) border-image-source
+
+ans:- d
+
+
+
+2. Which product is returned in a join query have no join condition:
+a) Equijoins
+b) Cartesian
+c) Both Equijoins and Cartesian
+d) None of the mentioned
+
+ans:- b
+
+3. Which of the following statements is correct about constructors in C#.NET?
+a) A constructor cannot be declared as private
+b) A constructor cannot be overloaded
+c) A constructor can be a static constructor
+d) None of the mentioned
+
+ans:- c

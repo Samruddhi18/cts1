@@ -1,0 +1,18 @@
+Design an MDI Application for Library Management System .
+
+The library maintains types of booksuch as Text Books, Magazine, Mannuals
+on different categories such, "Science and Technology", "Computer Books",
+"Finance Books". The system should keep track the book Issues and Returns.
+The system should maintain two categories of people such Walk-In and Members.
+
+The Book Issues should be maintain in the following form such as 
+
+1. Book Category -
+
+2. Book Title -
+
+3. Book Type -
+
+4.Date of Issue -
+
+5.Date of Return -

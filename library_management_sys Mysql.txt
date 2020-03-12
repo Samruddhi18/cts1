@@ -1,0 +1,15 @@
+create database Library_management_sys
+
+create table Book(Book_ID int Primary Key,Technical varchar(50),Non_Technical varchar(50))
+
+select * from Book
+
+create table Registration(st_id int Primary key,st_name varchar(50),gender varchar(50),Mobile_num int,Residential_addr varchar(50))
+
+create table Member(st_id int,Book_ID int primary key,issue_date datetime,return_date datetime
+constraint p foreign key(st_id) references Registration(st_id),
+constraint ps foreign key(Book_ID) references Book(Book_ID))
+
+create table Transact(Book_ID int,st_id int,overdue int,fine int,registration_fees int
+constraint p1 foreign key(st_id) references Registration(st_id),
+constraint ps1 foreign key(Book_ID) references Member(Book_ID))

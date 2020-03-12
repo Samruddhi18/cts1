@@ -1,0 +1,226 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace task1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      /*  private void c_Click(object sender, EventArgs e)
+        {
+            query = "Create table Test(uid int,uname varchar(50))";
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Table Created Succesfully...!");
+        }*/
+        SqlConnection con;
+        String query;
+        SqlCommand cmd;
+        SqlDataAdapter Adp;
+        DataSet ds;
+    
+        private void Form1_Load(object sender, EventArgs e)
+        {
+             con=new SqlConnection("server=BLT197\\SQLEXPRESS;database=Emp;Integrated Security=True");
+            con.Open();
+            
+        }
+
+        private void i_Click(object sender, EventArgs e)
+        {
+
+            DateTime dt = Convert.ToDateTime(dtp.Value);
+            query = "Insert into Student values('" + t1.Text + "','" + t2.Text + "','"+dp.Text+"','"+dt+"')";
+
+                cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Inserted Row Successfully...!");
+           
+        }
+
+        private void u_Click(object sender, EventArgs e)
+        {
+            query = "update Student set Course='" + dp.Text + "'where Sr_no ='" + t1.Text + "' ";
+
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Updated Row Successfully...!");
+        }
+
+        private void d_Click(object sender, EventArgs e)
+        {
+            query = "delete from Student  where Sr_no= '" +t1.Text+"'";
+
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Deleted Row Successfully...!");
+        }
+
+        private void s_Click(object sender, EventArgs e)
+        {
+           
+            query = "select * from Student where Sr_no='"+t1.Text+"' ";
+
+           
+            cmd = new SqlCommand(query, con);
+            SqlDataReader Reader = cmd.ExecuteReader();
+           
+            while (Reader.Read())
+            {
+                t1.Text = Reader["Sr_no"].ToString();
+                t2.Text = Reader["name"].ToString();
+                dp.Text= Reader["Course"].ToString();
+                dtp.Text = Reader["Date_of_Joining"].ToString();
+            }
+            Reader.Close();
+        }
+
+        private void dp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void dtp_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter Adapter;
+
+            if(comboBox1.Text == "All")
+            {
+                Adapter = new SqlDataAdapter("Select * From Student", con);
+                DataSet DS = new DataSet();
+                Adapter.Fill(DS, "Student");
+
+                dataGridView1.DataSource = DS;
+                dataGridView1.DataMember = "Student";
+            }
+            else if (comboBox1.Text == "Course")
+            {
+                Adapter = new SqlDataAdapter("Select Course From Student", con);
+                DataSet DS = new DataSet();
+                Adapter.Fill(DS, "Course");
+
+                dataGridView1.DataSource = DS;
+                dataGridView1.DataMember = "Course";
+            }
+            else 
+            {
+                Adapter = new SqlDataAdapter("Select Date From Student", con);
+                DataSet DS = new DataSet();
+                Adapter.Fill(DS, "Date_of_Joining");
+
+                dataGridView1.DataSource = DS;
+                dataGridView1.DataMember = "Date_of_Joining";
+            }
+        }
+
+       /* private void button1_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "All")
+            {
+                Form grid = new Form();
+                DataGridView View = new DataGridView();
+
+                Adp = new SqlDataAdapter("select * From Student", con);
+
+                DataSet grdset = new DataSet();
+                Adp.Fill(grdset, "Student");
+
+                View.DataSource = grdset;
+                View.DataMember = "Student";
+                grid.Height = 500;
+                grid.Width = 500;
+
+                View.Location = new Point(50, 50);
+                grid.Controls.Add(View);
+
+
+
+                grid.Height = 400;
+                grid.Width = 400;
+                grid.Show();
+
+            }
+            else if (comboBox1.Text == "Course")
+            {
+                Form grid = new Form();
+                DataGridView View = new DataGridView();
+
+
+                Adp = new SqlDataAdapter("select Course From Student", con);
+
+
+                DataSet grdset = new DataSet();
+                Adp.Fill(grdset, "Course");
+
+                View.DataSource = grdset;
+                View.DataMember = "Course";
+                grid.Height = 500;
+                grid.Width = 500;
+
+                View.Location = new Point(50, 50);
+                grid.Controls.Add(View);
+
+
+
+                grid.Height = 400;
+                grid.Width = 400;
+                grid.Show();
+
+            }
+            else
+            {
+                Form grid = new Form();
+                DataGridView View = new DataGridView();
+
+
+                Adp = new SqlDataAdapter("select Date_of_Joining From Student", con);
+
+
+                DataSet grdset = new DataSet();
+                Adp.Fill(grdset, "Date_of_Joining");
+
+                View.DataSource = grdset;
+                View.DataMember = "Date_of_Joining";
+                grid.Height = 500;
+                grid.Width = 500;
+
+                View.Location = new Point(50, 50);
+                grid.Controls.Add(View);
+
+                //grid.StartPosition = FormStartPosition.CenterScreen;
+
+                grid.Height = 400;
+                grid.Width = 400;
+                grid.Show();
+
+            }
+        }*/
+    }
+}
